@@ -1,7 +1,14 @@
 import mongoose from "mongoose";
 import { env } from "./env";
 
-// Connect to MongoDB using MONGO_URI from environment variables
-mongoose.connect(env.MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch(err => console.error(err));
+// Explicit DB connection function which is called from server.ts
+export async function connectDB() {
+  try {
+    console.log("Connecting to MongoDB...");
+    await mongoose.connect(env.MONGO_URI);
+    console.log("MongoDB connected");
+  } catch (err) {
+    console.error("MongoDB connection failed:", err);
+    process.exit(1); 
+  }
+}
