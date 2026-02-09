@@ -83,8 +83,8 @@ export async function login(
   reply
     .setCookie("token", token, {
       httpOnly: true,
-      secure: isProd, // true on Render (HTTPS), false locally
-      sameSite: isProd ? "none" : "lax", // lax works on localhost
+      secure: true, // true on Render (HTTPS), false locally
+      sameSite: "none", // allows cross-site cookies for local development and production
       path: "/",
       maxAge: 60 * 60 * 24, // 1 day
     })
