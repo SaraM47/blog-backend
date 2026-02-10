@@ -4,6 +4,6 @@ import { corsPlugin } from "./cors";
 
 // Function to register all plugins in Fastify
 export async function registerPlugins(app: FastifyInstance) {
-  await cookiePlugin(app);
-  await corsPlugin(app);
+  await corsPlugin(app); // Register CORS support
+  await cookiePlugin(app); // Register cookie support
 }
