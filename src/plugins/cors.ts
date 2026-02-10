@@ -17,7 +17,7 @@ export async function corsPlugin(app: FastifyInstance) {
       if (origin === env.CLIENT_ORIGIN) {
         cb(null, true);
       } else {
-        cb(new Error("Not allowed by CORS"), false);
+        cb(null, false);
       }
     },
 
