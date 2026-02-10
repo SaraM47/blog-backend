@@ -6,6 +6,8 @@ import { env } from "../config/env";
 export async function corsPlugin(app: FastifyInstance) {
   app.register(cors, {
     origin: env.CLIENT_ORIGIN,
-    credentials: true
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
   });
 }
