@@ -98,7 +98,13 @@ export async function login(
 
 // POST /auth/logout to clears the authentication cookie
 export async function logout(_req: FastifyRequest, reply: FastifyReply) {
-  reply.clearCookie("token", { path: "/" }).send({ ok: true });
+  reply
+    .clearCookie("token", {
+      path: "/",
+      sameSite: "none",
+      secure: true
+    })
+    .send({ ok: true });
 }
 
 // GET /auth/me to returns the current authenticated user
