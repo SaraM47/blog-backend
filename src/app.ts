@@ -9,6 +9,11 @@ export const app = Fastify({ logger: true });
 // Register plugins
 registerPlugins(app);
 
+// Root endpoint (health check for Render and browser)
+app.get("/", async () => {
+  return { status: "API running" };
+});
+
 // Register routes with prefixes
 app.register(authRoutes, { prefix: "/auth" });
 app.register(postRoutes, { prefix: "/posts" });
