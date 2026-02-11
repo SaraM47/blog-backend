@@ -1,13 +1,9 @@
 import Fastify from "fastify";
-import { registerPlugins } from "./plugins";
 import { authRoutes } from "./modules/auth/auth.routes";
 import { postRoutes } from "./modules/posts/post.routes";
 
 // Create Fastify instance
 export const app = Fastify({ logger: true });
-
-// Register plugins
-registerPlugins(app);
 
 // Root endpoint (health check for Render and browser)
 app.get("/", async () => {

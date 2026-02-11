@@ -1,11 +1,15 @@
 import { app } from "./app";
+import { registerPlugins } from "./plugins";
 import { connectDB } from "./config/db";
 
 // Use PORT from environment variables or default to 3000
 const PORT = process.env.PORT || 3000;
 
 async function startServer() {
-  // Connect to database first
+  // Register plugins (cookie, cors, etc.)
+  await registerPlugins(app);
+
+  // Connect to database
   await connectDB();
 
   // Start Fastify server
