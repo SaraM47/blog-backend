@@ -12,7 +12,7 @@ export async function authRoutes(app: FastifyInstance) {
 
   // POST /auth/logout to clear the authentication cookie
   app.post("/logout", logout);
-  
+
   // GET /auth/me to retrieve the authenticated user's information (protected route)
-  app.get("/me", { preHandler: authGuard }, me);
+  app.get("/me", me);
 }

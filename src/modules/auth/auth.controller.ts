@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import bcrypt from "bcrypt";
 import { User } from "../users/user.model";
-import { signToken } from "../../plugins/jwt";
+import { signToken, verifyToken } from "../../plugins/jwt";
 
 /**
  * Types for request bodies
@@ -107,7 +107,23 @@ export async function logout(_req: FastifyRequest, reply: FastifyReply) {
     .send({ ok: true });
 }
 
-// GET /auth/me to returns the current authenticated user
-export async function me(req: FastifyRequest, reply: FastifyReply) {
-  reply.send({ user: req.user });
+// GET /auth/me to return the current authenticated user (soft check, no 401)
+export async function me(
+  req: FastifyRequest,
+  reply: FastifyReply
+) {
+  const token = req.cookies.token;
+
+  // If no token exists, user is not authenticated → return null
+  if (!token) {
+    return reply.send({ user: null });
+  }
+
+  try {
+    const user = verifyToken(token);
+    return reply.send({ user });
+  } catch {
+    // If token is invalid or expired, treat as not authenticated
+    return reply.send({ user: null });
+  }
 }
